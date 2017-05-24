@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>算法 on Locory&#39;s Blog</title>
+    <link>https://luolr.github.io/tags/%E7%AE%97%E6%B3%95/index.xml</link>
+    <description>Recent content in 算法 on Locory&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>All rights reserved - 2017</copyright>
+    <atom:link href="https://luolr.github.io/tags/%E7%AE%97%E6%B3%95/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>即插即用的缓动小算法</title>
+      <link>https://luolr.github.io/post/easeout-algorithm/</link>
+      <pubDate>Sat, 20 May 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://luolr.github.io/post/easeout-algorithm/</guid>
+      <description>&lt;p&gt;前端们在日常开发中，总免不了要跟一些动画效果打交道，为了实现这个动画效果，要么写一段干巴巴、效果也不怎么好的代码，，要么直接就是拿来主义。我不是说这种做法不好，因为我也是这么做的:)
+不过后来我发现这些拿来就用的库中，有些只是使用一些较为简单的算法，自己就可以轻松的实现，本文即将介绍的算法——即插即用的缓动小算法。
+&lt;/p&gt;
+
+&lt;h3 id=&#34;原理&#34;&gt;原理&lt;/h3&gt;
+
+&lt;p&gt;假设要从数值A变化到数值B，如果是线性运动，则每次移动距离是一样；如果是缓动，每次移动距离不一样。那如何才能不一样呢？很简单，按比例移动就可以。&lt;/p&gt;
+
+&lt;p&gt;例如：每次移动剩余距离的一半。&lt;/p&gt;
+
+&lt;p&gt;对吧，超容易理解的。&lt;/p&gt;
+
+&lt;p&gt;比方说：你是一只猴子，距离你64的地方有一棵香蕉树，你马上向你心爱的香蕉树跑去，不过由于体力的原因，每次只能移动（剩余）一半的距离，则，你们之间的距离下一秒就是32,再下一秒就是16，然后8，然后4，然后2，然后1，然后……你就可以吃到香蕉了，这个过程就是一个典型的先快后慢的缓动运动过程。&lt;/p&gt;
+
+&lt;p&gt;用一个简单的公式表示就是：&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;A = A + (B - A) / 2&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;翻译一下就是：&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;我下一秒的位置 = 现在位置 + 现在和香蕉树之间距离的一半&lt;/code&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;实现&#34;&gt;实现&lt;/h3&gt;
+
+&lt;p&gt;在知道原理之后，就可以开始动手实现了，&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;// 滚动到顶部缓动实现
+// rate表示缓动速率，默认是2
+
+var backToTop = function (rate) {
+    var doc = document.body.scrollTop? document.body : document.documentElement;
+    var scrollTop = doc.scrollTop;
+
+    var top = function () {
+        scrollTop = scrollTop + (0 - scrollTop) / (rate || 2);
+
+        // 临界判断，终止动画
+        if (scrollTop &amp;lt; 1) {
+            doc.scrollTop = 0;
+            return;
+        }
+        doc.scrollTop = scrollTop;
+        // 用于绘制动画，不支持的浏览器可以用setTimeout来代替
+        requestAnimationFrame(top);    
+    };
+    top();
+};
+
+// requestAnimationFrame的兼容处理
+if (!window.requestAnimationFrame) {
+    requestAnimationFrame = function(fn) {
+        setTimeout(fn, 17);
+    };  
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;扩展&#34;&gt;扩展&lt;/h3&gt;
+
+&lt;p&gt;一名优秀的程序猿断不会止步于此，我们可以把这个方法抽取出来。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;Window.easeout = function (A, B, rate) {
+    if (A == B || typeof A != &#39;number&#39;) {
+        return;    
+    }
+    var doc = document.body.scrollTop? document.body : document.documentElement;
+    B = B || 0;
+    rate = rate || 2;
+
+    var run = function () {
+        A = A + (B - A) / rate;
+
+        if (A &amp;lt; 1) {
+            doc.scrollTop = 0;
+            return;
+        }
+        doc.scrollTop = A;
+        requestAnimationFrame(run);    
+    };
+    run();
+};
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;这样就可以全局使用了，是不是很开森？&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>
