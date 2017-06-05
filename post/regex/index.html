@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    
+    
+        <meta name="twitter:card" content="summary"/>
+    
+
+
+
+<meta name="twitter:title" content="正则那些事"/>
+<meta name="twitter:description" content="Take easy"/>
+<meta name="twitter:site" content="@"/>
+
+
+
+  	<meta property="og:title" content="正则那些事 &middot; Locory&#39;s Blog" />
+  	<meta property="og:site_name" content="Locory&#39;s Blog" />
+  	<meta property="og:url" content="https://luolr.github.io/post/regex/" />
+
+    
+        
+            <meta property="og:image" content="/images/cover.jpg"/>
+        
+    
+
+    
+    <meta property="og:description" content="Take easy" />
+  	<meta property="og:type" content="article" />
+    <meta property="article:published_time" content="2017-06-03T00:00:00Z" />
+
+    
+    <meta property="article:tag" content="正则表达式" />
+    
+    
+
+    <title>正则那些事 &middot; Locory&#39;s Blog</title>
+
+    
+    <meta name="description" content="Take easy" />
+    
+
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="shortcut icon" href="/images/favicon.ico">
+	  <link rel="apple-touch-icon" href="/images/apple-touch-icon.png" />
+
+    <link rel="stylesheet" type="text/css" href="/css/screen.css" />
+    <link rel="stylesheet" type="text/css" href="/css/nav.css" />
+
+    
+
+    
+
+    
+      
+          <link href="/index.xml" rel="alternate" type="application/rss+xml" title="Locory&#39;s Blog" />
+      
+      
+    
+    <meta name="generator" content="Hugo 0.19" />
+
+    <link rel="canonical" href="https://luolr.github.io/post/regex/" />
+
+    
+      
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": 
+    },
+    "author": {
+        "@type": "Person",
+        "name": ,
+        
+        "url": ,
+        "sameAs": [
+            
+            
+             
+             
+             
+             
+             
+            
+        ]
+    },
+    "headline": 正则那些事,
+    "name": 正则那些事,
+    "wordCount": 191,
+    "timeRequired": "PT1M",
+    "inLanguage": {
+      "@type": "Language",
+      "alternateName": en
+    },
+    "url": https://luolr.github.io/post/regex/,
+    "datePublished": 2017-06-03T00:00Z,
+    "dateModified": 2017-06-03T00:00Z,
+    
+    "keywords": 正则表达式,
+    "description": Take easy,
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": https://luolr.github.io/post/regex/
+    }
+}
+    </script>
+    
+
+
+    
+
+    
+
+    
+</head>
+<body class="nav-closed">
+
+  <div class="nav">
+    <h3 class="nav-title">Menu</h3>
+    <a href="#" class="nav-close">
+        <span class="hidden">Close</span>
+    </a>
+    <ul>
+        
+        
+        
+            
+            <li class="nav-opened" role="presentation">
+            	<a href="/post/web-optimization">前端性能优化：从入门到放弃</a>
+            </li>
+        
+            
+            <li class="nav-opened" role="presentation">
+            	<a href="/post/easeout-algorithm">即插即用的缓动小算法</a>
+            </li>
+        
+            
+            <li class="nav-opened" role="presentation">
+            	<a href="/post/regex">正则那些事</a>
+            </li>
+        
+        
+    </ul>
+
+    
+    <a class="subscribe-button icon-feed" href="/index.xml">Subscribe</a>
+    
+</div>
+<span class="nav-cover"></span>
+
+
+ <div class="site-wrapper">
+
+
+
+
+<header class="main-header post-head no-cover">
+  <nav class="main-nav clearfix">
+
+
+  
+  
+      <a class="menu-button" href="#"><span class="burger">&#9776;</span><span class="word">Menu</span></a>
+  
+  </nav>
+</header>
+
+
+
+<main class="content" role="main">
+
+
+
+
+  <article class="post post">
+
+    <header class="post-header">
+        <h1 class="post-title">正则那些事</h1>
+        <small>Take easy</small>
+
+        <section class="post-meta">
+        
+          <time class="post-date" datetime="2017-06-03T00:00:00Z">
+            Jun 3, 2017
+          </time>
+        
+         
+          <span class="post-tag small"><a href="https://luolr.github.io/tags/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/">#正则表达式</a></span>
+         
+        </section>
+    </header>
+
+    <section class="post-content">
+      <p>本文的目标，就是让你能够了解正则是什么，怎么用，并且学的轻松，用的快乐：）
+</p>
+
+<h3 id="前言">前言</h3>
+
+<p>想必有不少人跟我一样，身为一名开发人员，却对正则这东西知之甚少，甚至于完全不会用。我很长一段时间也是，工作也有段时间了，却只会写一些很简单的正则匹配，想写个电话号码匹配，我都要抓耳挠腮半天最后百度，甚是惭愧。
+于是乎，我痛下决心，我要弄懂它。不过学习的过程总是痛苦的，为了监督自己，也算是做个总结，我觉得边学边写是个好主意。毕竟，输入的最好方式是输出。</p>
+
+<h3 id="那么-什么是正则呢">那么，什么是正则呢？</h3>
+
+<p>正则表达式描述了一种字符串匹配的模式（pattern），可以用来检查一个串是否含有某种子串、将匹配的子串替换或者从某个串中取出符合某个条件的子串等。</p>
+
+<p>简单来说，就是用于一种用于描述匹配规则的工具，通常用于检索、替换符合某些规则的文本，在很多场合都用得到，就例如前文提到的电话号码匹配。你实际生活中肯定也用过不少，比如在文件夹检索文件，在页面中查找关键字等，这些都跟正则有关。</p>
+
+<p>那么假如，你写了一个正则表达式，要如何验证它的正确性呢？最常用的方法有两种：<code>patt.test(str)</code>和<code>str.match(patt)</code>。</p>
+
+<p>请打开浏览器的控制台，将你的的正则表达式（例如<code>/\w{2,10}/</code>）输入到控制台中，然后输入<code>.test(str)</code>并回车，str就是你要测试的字符串，正确的话控制台就会输出true，反之为false。当然你也可以使用<code>str.match(patt)</code>的方式。</p>
+
+<hr />
+
+<h3 id="step1-初窥门径">step1：初窥门径</h3>
+
+<p>本文为了方便理解，会采用先抛出一个例子，再补充相关知识，最后公布答案的方式。</p>
+
+<p><strong><em>问题1：假如你要在一篇文章中找出<code>he</code>的字符串，那么正则怎么写呢？</em></strong></p>
+
+<p>这就是最简单的正则表达式，你只需要使用正则表达式<code>he</code>。这样就能找到那些包含he的字符串，不过，很多单词也包含了he这个字符串，例如hello、heart等。如果直接使用<code>he</code>来检索的话，这些单词也会被找出，如果想精准的找出he这个单词的话，那么就该<code>\b</code>出场了。</p>
+
+<p><code>\b</code>是正则表达式规定的一个特殊代码，也叫元字符，代表着单词的开头或结尾，也就是单词的分界处。虽然通常英文的单词是由空格，标点符号或者换行来分隔的，但是<code>\b</code>并不匹配这些单词分隔字符中的任何一个，它只匹配一个位置。</p>
+
+<p>所以这道题的答案是：<code>\bhe\b</code> ，同理，假如你要查找的是<code>hello world</code>，那么就应该用<code>\bhello\bworld\b</code></p>
+
+<h3 id="元字符">元字符</h3>
+
+<p>现在，你已经认识了一个元字符，其实正则表达式里还有更多的元字符，将这些组合在一起使用，可以构造出功能更强大、更复杂的正则表达式。那么，先来认识一下它们：</p>
+
+<table>
+<thead>
+<tr>
+<th>元字符</th>
+<th>说明</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>.</td>
+<td>匹配除换行符以外的任意字符</td>
+</tr>
+
+<tr>
+<td>\w</td>
+<td>匹配字母或数字或下划线或汉字</td>
+</tr>
+
+<tr>
+<td>\s</td>
+<td>匹配任意的空白符</td>
+</tr>
+
+<tr>
+<td>\d</td>
+<td>匹配数字0-9</td>
+</tr>
+
+<tr>
+<td>\b</td>
+<td>匹配单词的开始或结束</td>
+</tr>
+
+<tr>
+<td>\W</td>
+<td>匹配任意不是字母或数字或下划线或汉字的字符</td>
+</tr>
+
+<tr>
+<td>\S</td>
+<td>匹配任意不是空白符的字符</td>
+</tr>
+
+<tr>
+<td>\D</td>
+<td>匹配任意非数字的字符</td>
+</tr>
+
+<tr>
+<td>\B</td>
+<td>匹配不是单词开头或结尾的位置</td>
+</tr>
+
+<tr>
+<td>[^x]</td>
+<td>匹配除了x以外的任意字符</td>
+</tr>
+
+<tr>
+<td>^</td>
+<td>匹配字符串的开始</td>
+</tr>
+
+<tr>
+<td>$</td>
+<td>匹配字符的的结束</td>
+</tr>
+</tbody>
+</table>
+
+<p>其中<code>s</code>用于匹配任意的空白符，包括空格、制表符（Tab）、换行符、中文全角空格等，<code>[^x]</code>表示不匹配^后面跟着的字符串，<code>^</code>和<code>$</code>则表示匹配字符的的开始和结束，用在正则表达式的开头和结尾，这两个用来用户验证输入的内容时非常合适。</p>
+
+<p><strong><em>问题2：如何匹配一个类似<code>4 G</code>的由数字、空格、字母组成的字符串呢？</em></strong></p>
+
+<p>很简单，我们只需要将我们学到的元字符组合起来就行了，答案是：<code>^\d\s\w$</code></p>
+
+<h3 id="限定符">限定符</h3>
+
+<p>你现在认识了不少有用的元字符，这些元字符在实际使用的时候，往往不是单个数字或者字母等，可能会重复很多次，这时要怎么办呢？</p>
+
+<p><strong><em>问题3：假如要匹配一个类似于<code>Leonardo.DiCaprio</code>或者<code>Hugh.Jackman</code>的由两个长度为4到8位的单词以及一个<code>.</code>组成的名字，正则应该怎么写呢？</em></strong></p>
+
+<p>在这里，我们就要引入一个新的概念，用来表示重复次数的限定符。下面是正则表达式中所有的限定符：</p>
+
+<table>
+<thead>
+<tr>
+<th>代码/语法</th>
+<th>说明</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>*</td>
+<td>重复零次或更多次</td>
+</tr>
+
+<tr>
+<td>+</td>
+<td>重复一次或更多次</td>
+</tr>
+
+<tr>
+<td>？</td>
+<td>重复零次或一次</td>
+</tr>
+
+<tr>
+<td>{n}</td>
+<td>重复n次</td>
+</tr>
+
+<tr>
+<td>{n,}</td>
+<td>重复n次或更多次</td>
+</tr>
+
+<tr>
+<td>{n,m}</td>
+<td>重复n到m次</td>
+</tr>
+</tbody>
+</table>
+
+<p>那么就很简单了，长度4到8位的单词可以用<code>\w{4,8}</code>来表示，不过<code>.</code>呢，直接使用.是肯定不行的，正则会将它解释成匹配除换行符以外的任意字符， 这时你就需要使用\来取消这些字符的特殊意义。
+例如使用<code>\.</code>和<code>\*</code>来匹配<code>.</code>和<code>*</code>，当然要查找<code>\</code>本身，你可以使用<code>\\</code>。</p>
+
+<p>那么，答案就是<code>^\w{4,8}\.\w{4,8}$</code></p>
+
+<hr />
+
+<h3 id="step2-小试牛刀">step2：小试牛刀</h3>
+
+<p>在认识了这么多元字符和限定符之后，或许我们可以来挑战一下实际会用的那些正则了。</p>
+
+<p><strong><em>问题4：如何匹配一个手机号码呢？</em></strong></p>
+
+<p>要解决这个问题，我们先要理清楚手机号码由哪几部分组成，手机号首先是由限定的3位数字（号码段）和任意8位数字组成的11位数字，号码段根据运营商分为以下几种（统计于2017.06）：</p>
+
+<table>
+<thead>
+<tr>
+<th align="center">运&nbsp;营&nbsp;商</th>
+<th>号码段</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td align="center">移动</td>
+<td>134、135、136、137、138、139、147、150、151、152、157、158、159、170、178、182、183、187、188</td>
+</tr>
+
+<tr>
+<td align="center">联通</td>
+<td>130、131、132、145、155、156、170、175、176、185、186</td>
+</tr>
+
+<tr>
+<td align="center">电信</td>
+<td>133、149、153、170、173、177、180、181、189</td>
+</tr>
+</tbody>
+</table>
+
+<p>由于号码段的存在，我们又得引入一个新的概念——分枝条件，即<code>x|y</code>，它主要用来匹配条件x或y。例如<code>[s|f]ox</code>可以匹配sox或fox。</p>
+
+<p>然后我们在结合之前的知识，那么号码段部分就可以由<code>(13[0-9])|(14[5|7])|(15([0-3]|[5-9]))|(17([0,3,5-8]))|(18([0-3]|[5-9]))</code>来表示，看起来是不是很复杂，不过仔细看的话，其实只是简单的排列组合罢了。</p>
+
+<p>那么答案也就呼之欲出了，剩下的只需要将号码段和任意的8位数字进行组合就行了，即<code>^((13[0-9])|(14[5|7])|(15([0-3]|[5-9]))|(17([0,3,5-8]))|(18([0-3]|[5-9])))\d{8}$</code>，注意不要少了<code>^</code>和<code>$</code>喔。</p>
+
+<p>怎么样，现在是不是很有成就感呢，为了熟练使用，我们再做一个题。</p>
+
+<p><strong><em>问题5：如何匹配一个可能是XXX-XXXXXXX、XXX-XXXXXXXX、XXXX-XXXXXXX、XXXX-XXXXXXXX、XXXXXXX和XXXXXXXX格式的固定电话呢？</em></strong></p>
+
+<p>我们将问题整理一下，座机可能有区号（3-4位），也可能没有区号，号码也可能是7位或者8位，那么总共有3+7、3+8、4+7、4+8、7位、8位的6种情况。</p>
+
+<p>首先，我们可以使用<code>\d{3,4}</code>来表示3-4位的区号，然后有区号后面可以会跟一个<code>-</code>，当然也可以没有区号，那么就变成<code>(\d{3,4}-)?</code>，7-8位的号码很好表示，即<code>\d{7,8}</code>，再将两者进行组合，答案就出来了：<code>^(\d{3,4}-)?\d{7,8}$</code></p>
+
+<hr />
+
+<h3 id="step3-炉火纯青">step3：炉火纯青</h3>
+
+<p>恭喜你学到了这里，想必你对正则表达式已经有了一定的了解，不过不要放松，真正困难的还在后面。</p>
+
+<p>前面我们已经提到了如何重复单个字符（直接在字符后面加上限定符就行了），但如果想要重复多个字符又该怎么办？你可以用小括号来指定<strong>子表达式</strong>(也叫做分组)，然后你就可以指定这个子表达式的重复次数了，当然你也可以对子表达式进行其它一些操作。</p>
+
+<p>那么如何创建一个子表达式呢，默认情况下，一对括号之内的字符就是一个子表达式，它会自动拥有一个组号，规则是：从左向右，以分组的左括号为标志，第一个出现的分组的组号为1，第二个为2，以此类推。然后，我们就可以开始学习关于分组的语法了。</p>
+
+<p><strong><em>后向引用</em></strong>用于重复搜索前面某个分组匹配的文本。例如，\1代表分组1匹配的文本。难以理解？请看示例：<code>\b(\w+)\b\s+\1\b</code>可以用来匹配重复的单词，像go go, 或者di di。</p>
+
+<p>不过你也可以自己指定子表达式的组名。要指定一个子表达式的组名，可以使用这样的语法：<code>(?&lt;name&gt;exp)</code>或者<code>(?'name'exp)</code>，这样exp的组名就被指定为name了。在引用这个分组时，需要使用<code>\k&lt;name&gt;</code>，那么上一个例子也可以写作<code>\b(?&lt;Word&gt;\w+)\b\s+\k&lt;Word&gt;\b</code>。当然，关于分组还有很多特定用途的语法。下面列出了最常用的一些：</p>
+
+<table>
+<thead>
+<tr>
+<th>分类</th>
+<th>代码/语法</th>
+<th>说明</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>捕获</td>
+<td><code>(exp)</code></td>
+<td>匹配exp,并捕获文本到自动命名的组里</td>
+</tr>
+
+<tr>
+<td>捕获</td>
+<td><code>(?&lt;name&gt;exp)</code></td>
+<td>匹配exp,并命名为name，也可写作<code>(?'name'exp)</code></td>
+</tr>
+
+<tr>
+<td>捕获</td>
+<td><code>(?:exp)</code></td>
+<td>匹配exp,不捕获匹配的文本，也不给此分组分配组号</td>
+</tr>
+
+<tr>
+<td>零宽断言</td>
+<td><code>(?=exp)</code></td>
+<td>匹配exp前面的位置</td>
+</tr>
+
+<tr>
+<td>零宽断言</td>
+<td><code>(?&lt;=exp)</code></td>
+<td>匹配exp后面的位置</td>
+</tr>
+
+<tr>
+<td>零宽断言</td>
+<td><code>(?!exp)</code></td>
+<td>匹配后面跟的不是exp的位置</td>
+</tr>
+
+<tr>
+<td>零宽断言</td>
+<td><code>(?&lt;!exp)</code></td>
+<td>匹配前面不是exp的位置</td>
+</tr>
+
+<tr>
+<td>注释</td>
+<td><code>(?#comment)</code></td>
+<td>用于提供注释让人阅读</td>
+</tr>
+</tbody>
+</table>
+
+<p>对于前两个语法，前面都已经解释过了，第三个（<code>(?:exp)</code>）不会改变正则表达式的处理方式，只是这样的组匹配的内容不会被捕获成组，也不会拥有组号。</p>
+
+<p><a href="http://bbs.csdn.net/topics/120096404">&ldquo;那么，我为什么要这么做呢？&rdquo;</a>——好问题，你觉得为什么呢？</p>
+
+<p>接下来的四个用于查找在某些内容(但并不包括这些内容)之前或之后的东西，也就是说它们像<code>\b</code>、<code>^</code>、<code>$</code>那样用于指定一个位置，这个位置应该满足一定的条件(即断言)，因此它们也被称为零宽断言。最好还是拿例子来说明吧：</p>
+
+<p><code>(?=exp)</code>也叫零宽度正预测先行断言，它断言自身出现的位置的后面能匹配表达式exp。比如<code>\b\w+(?=ing\b)</code>，匹配以ing结尾的单词的前面部分(除了ing以外的部分)，如查找I&rsquo;m singing while you&rsquo;re dancing.时，它会匹配sing和danc。</p>
+
+<p><code>(?&lt;=exp)</code>也叫零宽度正回顾后发断言，它断言自身出现的位置的前面能匹配表达式exp。比如<code>(?&lt;=\bre)\w+\b</code>会匹配以re开头的单词的后半部分(除了re以外的部分)，例如在查找reading a book时，它匹配ading。</p>
+
+<p>同理，<code>(?!exp)</code>也叫零宽度负预测先行断言，它断言自身出现的位置的后面能不匹配表达式exp。例如：<code>\d{3}(?!\d)</code>匹配三位数字，而且这三位数字的后面不能是数字；<code>\b((?!abc)\w)+\b</code>匹配不包含连续字符串abc的单词。</p>
+
+<p>同理，<code>(?&lt;!exp)</code>也叫零宽度负回顾后发断言，它断言此位置的前面不能匹配表达式exp：(?&lt;![a-z])\d{7}匹配前面不是小写字母的七位数字。</p>
+
+<p><strong><em>问题6：如何匹配一个不包含属性的简单HTML标签内里的内容？</em></strong></p>
+
+<p>唉，先别急着走啊，不用慌张，我们一点点来做。首先一个HTML标签是什么样子的？你告诉我，是类似<code>&lt;div&gt;abc&lt;/div&gt;</code>这样的，我们要拿到的就是里面的abc。我们再分析一下，有几个条件，首先前面是一个<code>&lt;div&gt;</code>，后面跟着<code>&lt;/div&gt;</code>，<code>div</code>的部分是一样的，这里可以用分组。
+然后，我们先将前后两个部分写出来——<code>(?&lt;=&lt;\w+&gt;)</code>和<code>(?=&lt;\/\w+&gt;)</code>，我们再引入分组的概念，得到<code>(?&lt;=&lt;\w+&gt;)</code>和<code>(?=&lt;\/\1&gt;)</code>。</p>
+
+<p>那么现在，只需要将标签和内容组合起来：<code>(?&lt;=&lt;\w+&gt;).*(?=&lt;\/\1&gt;)</code></p>
+
+<p>如果一下子没看懂也没关系，不要着急，仔细理一下。</p>
+
+<p>小括号的另一种用途是通过语法<code>(?#comment)</code>来包含注释。例如：
+<code>
+       (?&lt;=    # 断言要匹配的文本的前缀
+       &lt;(\w+)&gt; # 查找尖括号括起来的字母或数字(即HTML/XML标签)
+       )       # 前缀结束
+       .*      # 匹配任意文本
+       (?=     # 断言要匹配的文本的后缀
+       &lt;\/\1&gt;  # 查找尖括号括起来的内容：前面是一个&quot;/&quot;，后面是先前捕获的标签
+       )       # 后缀结束
+</code></p>
+
+<hr />
+
+<h3 id="补充">补充</h3>
+
+<p>如果你看到了这里，恭喜你，你已经完成了正则表达式的修炼！你已经可以带着你学到的知识，去其他人面前露一手了。先别急着走，我这还有几句话要补充。</p>
+
+<p>当正则表达式中包含能接受重复的限定符时，通常的行为是（在使整个表达式能得到匹配的前提下）匹配尽可能多的字符。以这个表达式为例：<code>a.*b</code>，它将会匹配最长的以a开始，以b结束的字符串。如果用它来搜索aabab的话，它会匹配整个字符串aabab。这被称为贪婪匹配。</p>
+
+<p>有时，我们更需要懒惰匹配，也就是匹配尽可能少的字符。前面给出的限定符都可以被转化为懒惰匹配模式，只要在它后面加上一个问号<code>?</code>。这样<code>.*?</code>就意味着匹配任意数量的重复，但是在能使整个匹配成功的前提下使用最少的重复。现在看看懒惰版的例子吧：</p>
+
+<p><code>a.*?b</code>就会去匹配最少的字符串，以a开始，以b结束的字符串。如果把它应用于aabab的话，它会匹配aab（因为它是从左往右匹配，得到第一个符合规则的就不会继续匹配了)。这里再补充一个懒惰限定符：</p>
+
+<table>
+<thead>
+<tr>
+<th align="center">代码/语法</th>
+<th>说明</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td align="center">*?</td>
+<td>重复零次或更多次，但尽可能少重复</td>
+</tr>
+
+<tr>
+<td align="center">+？</td>
+<td>重复一次或更多次，但尽可能少重复</td>
+</tr>
+
+<tr>
+<td align="center">？？</td>
+<td>重复零次或一次，但尽可能少重复</td>
+</tr>
+
+<tr>
+<td align="center">{n,}</td>
+<td>重复n次或更多次，但尽可能少重复</td>
+</tr>
+
+<tr>
+<td align="center">{n,m}？</td>
+<td>重复n到m次，但尽可能少重复</td>
+</tr>
+</tbody>
+</table>
+
+<p>好了，在完成了本文的同时，我也算是初步完成了正则的修炼，我要去露一手了：)</p>
+
+<h4 id="参考资料">参考资料</h4>
+
+<ul>
+<li><a href="http://www.runoob.com/regexp/regexp-syntax.html">正则表达式 – 语法 | 菜鸟教程</a></li>
+<li><a href="https://deerchao.net/tutorials/regex/regex.htm">正则表达式30分钟入门教程</a></li>
+</ul>
+    </section>
+
+
+  <footer class="post-footer">
+
+
+    
+
+    
+
+
+
+
+
+<section class="author">
+  <h4><a href="https://luolr.github.io/"></a></h4>
+  
+  <p>Read <a href="https://luolr.github.io/">more posts</a> by this author.</p>
+  
+  <div class="author-meta">
+    
+    
+  </div>
+</section>
+
+
+
+    
+<section class="share">
+  <h4>Share this post</h4>
+  <a class="icon-twitter" style="font-size: 1.4em" href="https://twitter.com/share?text=%e6%ad%a3%e5%88%99%e9%82%a3%e4%ba%9b%e4%ba%8b&nbsp;-&nbsp;Locory%27s%20Blog&amp;url=https%3a%2f%2fluolr.github.io%2fpost%2fregex%2f"
+      onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+      <span class="hidden">Twitter</span>
+  </a>
+  <a class="icon-facebook" style="font-size: 1.4em" href="https://www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fluolr.github.io%2fpost%2fregex%2f"
+      onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+      <span class="hidden">Facebook</span>
+  </a>
+  <a class="icon-pinterest" style="font-size: 1.4em" href="http://pinterest.com/pin/create/button/?url=https%3a%2f%2fluolr.github.io%2fpost%2fregex%2f&amp;description=%e6%ad%a3%e5%88%99%e9%82%a3%e4%ba%9b%e4%ba%8b"
+      onclick="window.open(this.href, 'pinterest-share','width=580,height=296');return false;">
+      <span class="hidden">Pinterest</span>
+  </a>
+  <a class="icon-google-plus" style="font-size: 1.4em" href="https://plus.google.com/share?url=https%3a%2f%2fluolr.github.io%2fpost%2fregex%2f"
+     onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+      <span class="hidden">Google+</span>
+  </a>
+</section>
+
+
+
+    
+
+
+
+
+  </footer>
+</article>
+
+</main>
+
+
+  <aside class="read-next">
+  
+  
+      <a class="read-next-story prev" style="no-cover" href="/post/easeout-algorithm/">
+          <section class="post">
+              <h2>即插即用的缓动小算法</h2>
+          </section>
+      </a>
+  
+</aside>
+
+
+
+    <footer class="site-footer clearfix">
+        <section class="copyright"><a href="">Locory&#39;s Blog</a> All rights reserved - 2017</section>
+        
+        <section class="poweredby">Proudly generated by <a class="icon-hugo" href="http://gohugo.io">HUGO</a>, with <a class="icon-theme" href="https://github.com/vjeantet/hugo-theme-casper">Casper</a> theme</section>
+        
+    </footer>
+    </div>
+    <script type="text/javascript" src="/js/jquery.js"></script>
+    <script type="text/javascript" src="/js/jquery.fitvids.js"></script>
+    <script type="text/javascript" src="/js/index.js"></script>
+    
+</body>
+</html>
+
